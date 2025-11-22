@@ -147,5 +147,6 @@ worker.on("completed", (job, result) => {
 });
 
 process.on("SIGTERM", () => {
-	void HandleSIGTERMGracefully();
+	logger.info("SIGTERM received, waiting for current jobs to finish...", { shutdownInfo: true });
+	void worker.close().then(() => HandleSIGTERMGracefully());
 });
